@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { type CatRegimen, type CatProfile } from "@/lib/catRegimen";
 import { AlertTriangle, Droplets, Utensils, Clock, Zap, ChevronRight, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,8 @@ const lifeStageClasses: Record<string, string> = {
 };
 
 export default function RegimenResults({ regimen, profile, onReset }: RegimenResultsProps) {
+  const [_ready] = useState(true);
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -120,7 +123,7 @@ export default function RegimenResults({ regimen, profile, onReset }: RegimenRes
 
       {/* Hydration */}
       <Section title="Hydration Tip" icon={<Droplets className="w-4 h-4" />}>
-        <p className="text-sm text-foreground/80 leading-relaxed p-3 rounded-xl bg-sky-50 border border-sky-200 text-sky-800">
+        <p className="text-sm leading-relaxed p-3 rounded-xl bg-sky-50 border border-sky-200 text-sky-800">
           💧 {regimen.hydrationTip}
         </p>
       </Section>
@@ -168,7 +171,7 @@ export default function RegimenResults({ regimen, profile, onReset }: RegimenRes
         <Section title="Recommended Home Recipes" icon={<span className="text-sm">🍳</span>}>
           <div className="space-y-4">
             {regimen.homeRecipes.map((r, i) => (
-              <div key={i} className="p-4 rounded-xl border bg-emerald-50 border-emerald-200 space-y-2">
+              <div key={i} className="p-4 rounded-xl border border-emerald-200 bg-emerald-50 space-y-2">
                 <h4 className="font-semibold text-emerald-800">🥣 {r.name}</h4>
                 <ul className="space-y-1">
                   {r.ingredients.map((ing, j) => (
